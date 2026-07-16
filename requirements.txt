@@ -1,0 +1,15 @@
+# Reddit API
+praw>=7.8.0
+
+# Data Processing
+pandas>=2.2.0
+
+# Database
+sqlalchemy>=2.0.0
+psycopg2-binary>=2.9.9
+
+# Sentiment Analysis
+vaderSentiment>=3.3.2
+
+# Environment Variables
+python-dotenv>=1.0.1
