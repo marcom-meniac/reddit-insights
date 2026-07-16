@@ -1,0 +1,58 @@
+-- ============================================================================
+-- reddit.sql
+-- Reddit Marketing Intelligence Database Schema
+-- Stores publicly available Reddit posts for read-only market research
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS reddit_posts (
+
+    id                  VARCHAR(20) PRIMARY KEY,
+
+    subreddit           VARCHAR(100) NOT NULL,
+
+    title               TEXT NOT NULL,
+    body                TEXT,
+
+    author              VARCHAR(100),
+
+    permalink           TEXT NOT NULL UNIQUE,
+    post_url            TEXT,
+
+    created_utc         TIMESTAMP NOT NULL,
+    retrieved_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    score               INTEGER DEFAULT 0,
+    upvote_ratio        NUMERIC(5,2),
+    num_comments        INTEGER DEFAULT 0,
+
+    topic               VARCHAR(100),
+    sentiment           VARCHAR(20),
+    sentiment_score     NUMERIC(5,2),
+
+    is_nsfw             BOOLEAN DEFAULT FALSE,
+    is_locked           BOOLEAN DEFAULT FALSE
+);
+
+-- ============================================================================
+-- Indexes
+-- ============================================================================
+
+CREATE INDEX IF NOT EXISTS idx_reddit_subreddit
+ON reddit_posts(subreddit);
+
+CREATE INDEX IF NOT EXISTS idx_reddit_created
+ON reddit_posts(created_utc);
+
+CREATE INDEX IF NOT EXISTS idx_reddit_topic
+ON reddit_posts(topic);
+
+CREATE INDEX IF NOT EXISTS idx_reddit_sentiment
+ON reddit_posts(sentiment);
+
+CREATE INDEX IF NOT EXISTS idx_reddit_author
+ON reddit_posts(author);
+
+-- ============================================================================
+-- End of Schema
+-- ============================================================================
